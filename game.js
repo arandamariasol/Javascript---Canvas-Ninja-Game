@@ -17,6 +17,7 @@
         //wall = [],
         body = [],
         food = null,
+        extraScore = null,
         iBody = new Image(),
         iFood = new Image(),
         aEat = new Audio(),
@@ -119,6 +120,8 @@
         body.push(new Rectangle(0, 0, 10, 10));
         food.x = random(canvas.width / 10 - 1) * 10;
         food.y = random(canvas.height / 10 - 1) * 10;
+        extraScore.x = random(canvas.width / 10 - 1) * 10;
+        extraScore.y = random(canvas.height / 10 - 1) * 10;
         gameover = false;
     }
 
@@ -150,6 +153,10 @@
         //food.fill(ctx);
         ctx.strokeStyle = '#f00';
         ctx.drawImage(iFood, food.x, food.y);
+
+        // Draw extra score
+        ctx.fillStyle = '#f0f';
+        extraScore.fill(ctx);
 
         // Debug last key pressed
         ctx.fillStyle = '#fff';
@@ -256,6 +263,14 @@
                 food.y = random(canvas.height / 10 - 1) * 10;
                 aEat.play();
             }
+
+             // Extra Score Intersects
+             if (body[0].intersects(extraScore)) {
+                console.log('Puntaje extra');
+                //score += 1;
+                extraScore.x = random(canvas.width / 10 - 1) * 10;
+                extraScore.y = random(canvas.height / 10 - 1) * 10;
+            }
         }
         // Pause/Unpause
         if (lastPress === KEY_ENTER) {
@@ -292,6 +307,9 @@
 
         // Create food
         food = new Rectangle(80, 80, 10, 10);
+
+        // Create extra score
+        extraScore = new Rectangle(110, 110, 10, 10);
 
         // Create walls
         //wall.push(new Rectangle(100, 50, 10, 10));
