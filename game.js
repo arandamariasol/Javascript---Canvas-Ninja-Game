@@ -1,4 +1,3 @@
-/*jslint bitwise:true, es5: true */
 (function (window, undefined) {
     //'use strict';
     var KEY_ENTER = 13,
@@ -43,25 +42,6 @@
         this.width = (width === null) ? 0 : width;
         this.height = (height === null) ? this.width : height;
 
-        /*this.intersects = function (rect) {
-            if (rect === null) {
-                window.console.warn('Missing parameters on function intersects');
-            } else {
-                return (this.x < rect.x + rect.width &&
-                    this.x + this.width > rect.x &&
-                    this.y < rect.y + rect.height &&
-                    this.y + this.height > rect.y);
-            }
-        };
-
-        this.fill = function (ctx) {
-            if (ctx === null) {
-                window.console.warn('Missing parameters on function fill');
-            } else {
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-            }
-        };*/
-
         Rectangle.prototype = {
             constructor: Rectangle,
 
@@ -102,15 +82,6 @@
         return ~~(Math.random() * max);
     }
 
-    function canPlayOgg() {
-        var aud = new Audio();
-        if (aud.canPlayType('audio/ogg').replace(/no/, '')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     function reset() {
         score = 0;
         dir = 1;
@@ -149,8 +120,6 @@
         //}
 
         // Draw food
-        //ctx.fillStyle = '#f00';
-        //food.fill(ctx);
         ctx.strokeStyle = '#f00';
         ctx.drawImage(iFood, food.x, food.y);
 
@@ -160,12 +129,11 @@
 
         // Debug last key pressed
         ctx.fillStyle = '#fff';
-        //ctx.fillText('Last Press: ' + lastPress, 0, 20);
 
         // Draw score
         ctx.fillText('Score: ' + score, 0, 10);
 
-    // Draw pause
+        // Draw pause
         if (pause) {
             ctx.textAlign = 'center';
             if (gameover) {
@@ -274,11 +242,10 @@
                 aEat.play();
             }
 
-             // Extra Score Intersects
-             if (body[0].intersects(extraScore)) {
-                console.log('Puntaje extra');
+            // Extra Score Intersects
+            if (body[0].intersects(extraScore)) {
+                score += 10;
                 fExtraScore ();
-                //score += 1;
                 extraScore.x = random(canvas.width / 10 - 1) * 10;
                 extraScore.y = random(canvas.height / 10 - 1) * 10;
             }
@@ -308,14 +275,9 @@
         // Load assets
         iBody.src = 'assets/body.png';
         iFood.src = 'assets/fruit.png';
-        if (canPlayOgg()) {
-            aEat.src = 'assets/chomp.oga';
-            aDie.src = 'assets/dies.oga';
-        } else {
-            aEat.src = 'assets/chomp.m4a';
-            aDie.src = 'assets/dies.m4a';
-        }
-
+        aEat.src = 'assets/chomp.oga';
+        aDie.src = 'assets/dies.oga';
+             
         // Create food
         food = new Rectangle(80, 80, 10, 10);
 
