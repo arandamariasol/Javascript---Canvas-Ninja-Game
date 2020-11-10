@@ -177,6 +177,16 @@
         }
     }
 
+    function fExtraScore () {
+        fetch ('https://jsonplaceholder.typicode.com/?score=10')
+            .then (function(response) {
+                return console.log('Extra Score Added')
+            })
+            .catch (function(error) {
+                return console.log('Extra Score Canceled')
+            })    
+    }
+
     function act() {
         var i,
             l;
@@ -267,6 +277,7 @@
              // Extra Score Intersects
              if (body[0].intersects(extraScore)) {
                 console.log('Puntaje extra');
+                fExtraScore ();
                 //score += 1;
                 extraScore.x = random(canvas.width / 10 - 1) * 10;
                 extraScore.y = random(canvas.height / 10 - 1) * 10;
